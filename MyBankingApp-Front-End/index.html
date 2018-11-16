@@ -6,9 +6,39 @@
   <meta name="viewport" content="width=device-width" />
   <link href="Content/bootstrap.min.css" rel="stylesheet" />
   <script src="Scripts/jquery-3.0.0.min.js"></script>
-
+  <script src="Scripts/knockout-3.4.2.js"></script>
   <script>
     $(document).ready(function () {
+
+      $("#ko").click(function () {
+
+        function ComptesViewModel() {
+          // Mémoriser le contexte principal du VM
+          var self = this;
+
+          // Liste des comptes
+          self.comptes = ko.observableArray();
+
+          // Initiliser le vecteur data
+          $.ajax({
+            url: 'http://localhost:31894/api/comptes',
+            cache: false,
+            type: 'GET',
+            contentType: 'application/json',
+            success: function (result) {
+              self.comptes(result); //Put the response in ObservableArray
+              console.log("REST appelé avec succes");
+            }
+          });
+        }
+        ko.applyBindings(new ComptesViewModel());
+
+
+
+      });
+
+
+
       $("#jquery").click(function () {
         $.ajax({
           url: "http://localhost:31894/api/comptes",
@@ -50,7 +80,7 @@
           <a class="nav-link" id="jquery">JQuery Ajax <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#">KnockoutJS</a>
+          <a class="nav-link" id="ko">KnockoutJS</a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="#">KendoGrid</a>
@@ -68,19 +98,19 @@
 
     <table class="table table-bordered table-striped offset-2 col-8">
       <thead>
-        <tr>        
+        <tr>
           <th scope="col">Numero</th>
           <th scope="col">Propriétaire</th>
           <th scope="col">Solde</th>
         </tr>
       </thead>
-      <tbody id="tab_body">        
+      <tbody data-bind="foreach:comptes">
         <tr>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
+          <td data-bind="text:Numero"></td>
+          <td data-bind="text:Proprietaire"></td>
+          <td data-bind="text:Solde"></td>
         </tr>
-       
+
       </tbody>
     </table>
 
