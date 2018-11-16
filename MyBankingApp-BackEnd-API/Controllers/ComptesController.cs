@@ -5,11 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using MyBankingApp_BackEnd_API.Models;
+
 using MyBankingApp_BackEnd_Library.Domain;
+using System.Web.Http.Cors;
 
 namespace MyBankingApp_BackEnd_API.Controllers
 {
+  [EnableCors(origins: "*", headers: "*", methods: "*")]
   public class ComptesController : ApiController
   {
 

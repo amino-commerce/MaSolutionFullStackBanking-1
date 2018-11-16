@@ -2,7 +2,6 @@ using MyBankingApp_BackEnd_Library.Repository;
 using System.Web.Http;
 using Unity;
 using Unity.WebApi;
-using MyBankingApp_BackEnd_API.Models;
 using Moq;
 using MyBankingApp_BackEnd_Library.Domain;
 using System.Collections.Generic;
